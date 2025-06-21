@@ -3,6 +3,8 @@
 Jeu web pour tester tes connaissances sur les drapeaux du monde!
 Le joueur doit reconnaître le drapeau affiché parmi quatre propositions de pays.
 
+Lien : https://baky91.github.io/quiz_drapeaux
+
 ## Fonctionnalités
 
 - Affichage aléatoire d'un drapeau
@@ -22,17 +24,6 @@ En cas de bonne réponse:
 En cas de mauvaise réponse:
 
 ![mauvaise réponse](https://github.com/user-attachments/assets/33a4c5dd-40ec-4530-96be-0d65c2156a9b)
-
-
-## Lancer le jeu
-
-### Cliquer sur ce lien
-
-https://baky91.github.io/quiz_drapeaux
-
-### Télécharger le code source
-
-Ouvrir le fichier index.html dans un navigateur.
 
 ## Structure des données
 
