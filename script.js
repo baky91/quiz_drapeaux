@@ -89,10 +89,11 @@ class FlagQuizGame {
   initGame() {
     // Faire en sorte que countries prenne le contenu de staticCountries et non la référence vers le tableau
     this.countries = this.staticCountries.map((c) => ({ ...c }));
-    this.nbRounds = 5;
+    // Choisir le nombre de manches manuellement
+    this.nbRounds = 10;
     // Pour faire passer tous les pays
     // this.nbRounds = countries.length;
-    this.currentRound = 1;
+    this.currentRound = 0;
     this.correctAnswer = null;
     this.score = 0;
 
@@ -115,6 +116,12 @@ class FlagQuizGame {
 
   playRound() {
     // console.log(this.countries);
+    this.currentRound++;
+
+    // Mettre à jour le compteur de manches
+    document.getElementById("round-counter").textContent = `Manche ${
+      this.currentRound < this.nbRounds ? this.currentRound : this.nbRounds
+    }/${this.nbRounds}`;
 
     const country = this.getRandomCountry();
 
@@ -159,8 +166,6 @@ class FlagQuizGame {
   }
 
   handleAnswer(listItem) {
-    this.currentRound++;
-
     const continueButton = document.getElementById("continue-btn");
 
     // Indiquer si la réponse est correcte ou fausse
@@ -178,15 +183,12 @@ class FlagQuizGame {
     // Afficher la réponse correcte
     this.getListItemOfCorrectAnswer().style.background = "green";
 
-    // Mise à jour du compteur de manche et de points
-    document.getElementById("round-counter").textContent = `Manche ${
-      this.currentRound < this.nbRounds ? this.currentRound : this.nbRounds
-    }/${this.nbRounds}`;
+    // Mise à jour du compteur de points
     document.querySelector(".score").innerHTML = `Vous avez <strong>${
       this.score
     }</strong> point${this.score > 1 ? "s" : ""}.`;
 
-    if (this.currentRound == this.nbRounds + 1) {
+    if (this.currentRound == this.nbRounds) {
       this.endGame();
     } else {
       //   continueButton.style.display = "initial";
