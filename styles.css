@@ -1,0 +1,125 @@
+/* styles.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #222;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+#container {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+#flag-image {
+    margin-bottom: 25px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    border: 2px dashed #ccc;
+}
+
+/* Exemple de drapeau temporaire */
+
+#flag-image img {
+    max-height: 180px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+
+.countries-proposition ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+.countries-proposition li {
+    background-color: #e0e7ff;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+
+.countries-proposition li:hover {
+    background-color: #c7d2fe;
+    transform: scale(1.03);
+}
+
+.game-infos h2 {
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.answer-check-container {
+    height: 21px;
+    /* background-color: red; */
+}
+
+.answer-check{
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: green;
+}
+
+.game-infos p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto 0;
+}
+
+#replay-btn, #continue-btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.25rem 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Cacher mais garder la place */
+#continue-btn.hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.countries-proposition li,
+.buttons button {
+  user-select: none;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz des drapeaux</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    
+    <h1>Jeux de quiz des drapeaux</h1>
+    
+    <div id="container">
+        <p class="game-end">Partie terminée</p>
+        
+        <h2 id="round-counter">Manche 1/10</h2>
+
+        <div id="flag-image"></div>
+
+        <div class="countries-proposition">
+            <ul>
+                <li id="country-1">France</li>
+                <li id="country-2">Angleterre</li>
+                <li id="country-3">Belgique</li>
+                <li id="country-4">Russie</li>
+            </ul>
+        </div>
+
+        <div class="game-infos">
+            <div class="answer-check-container">
+                <p" class="answer-check"></p>
+            </div>
+            <p class="score">Vous avez 0 point.</p>
+        </div>
+
+        <div class="buttons">
+            <button id="continue-btn" class="hidden">Continuer</button>
+            <button id="replay-btn">Rejouer</button>
+        </div>
+
+    </div>
+
+    <script src="./script.js"></script>
+    <!-- <script src="./index.js"></script> -->
+</body>
+</html>
