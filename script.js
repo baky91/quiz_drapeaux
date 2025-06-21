@@ -67,7 +67,6 @@ class FlagQuizGame {
     const continueButton = document.getElementById("continue-btn");
     continueButton.addEventListener("click", () => {
       this.playRound();
-      //   continueButton.style.display = "none";
       continueButton.classList.add("hidden");
 
       const listItems = document.querySelectorAll("ul > li");
@@ -80,7 +79,6 @@ class FlagQuizGame {
     const replayButton = document.getElementById("replay-btn");
     replayButton.addEventListener("click", () => {
       this.initGame();
-      //   replayButton.style.display = "none";
     });
 
     this.initGame();
@@ -96,6 +94,8 @@ class FlagQuizGame {
     this.currentRound = 0;
     this.correctAnswer = null;
     this.score = 0;
+
+    document.querySelector(".game-end").textContent = "";
 
     // Initialiser la couleur de fond des proposition
     const listItems = document.querySelectorAll("ul > li");
@@ -115,7 +115,6 @@ class FlagQuizGame {
   }
 
   playRound() {
-    // console.log(this.countries);
     this.currentRound++;
 
     // Mettre à jour le compteur de manches
@@ -127,8 +126,6 @@ class FlagQuizGame {
 
     // retirer le drapeau de la partie
     let index = this.getIndexOfCountry(country);
-    // console.log(index);
-
     this.countries.splice(index, 1);
 
     this.correctAnswer = country.name;
@@ -199,7 +196,12 @@ class FlagQuizGame {
   }
 
   endGame() {
-    alert(`Partie terminée ! Vous avez ${this.score} points !`);
+    document.querySelector(
+      ".game-end"
+    ).textContent = `Partie terminée ! Vous avez ${this.score} point${
+      this.score > 1 ? "s" : ""
+    }`;
+
     const replayButton = document.getElementById("replay-btn");
     replayButton.style.display = "initial";
   }
@@ -217,8 +219,6 @@ class FlagQuizGame {
     let index = -1;
     for (let i = 0; i < this.countries.length; i++) {
       if (this.countries[i].name === country.name) {
-        // console.log(`${this.countries[i].name} - ${country.name}`);
-
         index = i;
       }
     }
