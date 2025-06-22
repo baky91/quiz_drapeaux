@@ -225,6 +225,14 @@ class FlagQuizGame {
 
         document.getElementById("popup-settings").classList.add("hidden");
       });
+
+    document
+      .getElementById("popup-cancel-settings")
+      .addEventListener("click", () => {
+        // Pour ne pas prendre en compte les changement non validés
+        select.value = this.nbRounds.toString();
+        document.getElementById("popup-settings").classList.add("hidden");
+      });
   }
 
   continue() {

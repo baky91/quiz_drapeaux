@@ -102,7 +102,7 @@ h1 {
     margin: 2rem auto 0;
 }
 
-#replay-btn, #continue-btn, #popup-close {
+#replay-btn, #continue-btn, .popup button {
     font-size: 1.2rem;
     font-weight: bold;
     padding: 0.25rem 1.5rem;
@@ -174,4 +174,39 @@ h1 {
 
 #settings-button:active {
     background: gray;
+}
+
+.round-count-select {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.round-count-select label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+#round-select {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23666' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5rem;
+  cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+#round-select:focus {
+  border-color: #888;
+  outline: none;
+  background-color: #fff;
 }
