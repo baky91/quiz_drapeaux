@@ -58,25 +58,34 @@ const countries = [
   { name: "Tchéquie", code: "cz" },
 ];
 
+// Elements
+
+const continueButton = document.getElementById("continue-btn");
+const replayButton = document.getElementById("replay-btn");
+const listItems = document.querySelectorAll("ul > li");
+const flagContainer = document.getElementById("flag-image");
+const result = document.querySelector(".answer-check");
+const score = document.querySelector(".score");
+const gameEnd = document.querySelector(".game-end");
+const roundCounter = document.getElementById("round-counter");
+
 class FlagQuizGame {
   constructor(countriesList) {
     this.staticCountries = countriesList;
     this.countries = null;
 
     // Bouton pour la manche suivante
-    const continueButton = document.getElementById("continue-btn");
     continueButton.addEventListener("click", () => {
       this.playRound();
       continueButton.classList.add("hidden");
 
-      const listItems = document.querySelectorAll("ul > li");
       listItems.forEach((li) => {
         li.style.background = "#e0e7ff";
       });
     });
 
     // Bouton pour rejouer
-    const replayButton = document.getElementById("replay-btn");
+
     replayButton.addEventListener("click", () => {
       this.initGame();
     });
@@ -95,21 +104,16 @@ class FlagQuizGame {
     this.correctAnswer = null;
     this.score = 0;
 
-    document.querySelector(".game-end").textContent = "";
+    gameEnd.textContent = "";
 
     // Initialiser la couleur de fond des proposition
-    const listItems = document.querySelectorAll("ul > li");
     listItems.forEach((li) => {
       li.style.background = "#e0e7ff";
     });
 
     // Initialisation du compteur de manche et de points
-    document.getElementById(
-      "round-counter"
-    ).textContent = `Manche 1/${this.nbRounds}`;
-    document.querySelector(
-      ".score"
-    ).innerHTML = `Vous avez <strong>0</strong> point`;
+    roundCounter.textContent = `Manche 1/${this.nbRounds}`;
+    score.innerHTML = `Vous avez <strong>0</strong> point`;
 
     this.playRound();
   }
@@ -118,7 +122,7 @@ class FlagQuizGame {
     this.currentRound++;
 
     // Mettre à jour le compteur de manches
-    document.getElementById("round-counter").textContent = `Manche ${
+    roundCounter.textContent = `Manche ${
       this.currentRound < this.nbRounds ? this.currentRound : this.nbRounds
     }/${this.nbRounds}`;
 
@@ -130,14 +134,12 @@ class FlagQuizGame {
 
     this.correctAnswer = country.name;
 
-    const flagContainer = document.getElementById("flag-image");
     const flagUrl = this.getFlagURL(country.code);
 
     flagContainer.innerHTML = "";
     const img = document.createElement("img");
     img.src = flagUrl;
 
-    const result = document.querySelector(".answer-check");
     result.textContent = "";
 
     flagContainer.appendChild(img);
@@ -163,10 +165,7 @@ class FlagQuizGame {
   }
 
   handleAnswer(listItem) {
-    const continueButton = document.getElementById("continue-btn");
-
     // Indiquer si la réponse est correcte ou fausse
-    const result = document.querySelector(".answer-check");
     if (listItem.textContent === this.correctAnswer) {
       this.score++;
       result.textContent = "Bonne réponse !";
@@ -181,9 +180,10 @@ class FlagQuizGame {
     this.getListItemOfCorrectAnswer().style.background = "green";
 
     // Mise à jour du compteur de points
-    document.querySelector(".score").innerHTML = `Vous avez <strong>${
-      this.score
-    }</strong> point${this.score > 1 ? "s" : ""}.`;
+
+    score.innerHTML = `Vous avez <strong>${this.score}</strong> point${
+      this.score > 1 ? "s" : ""
+    }.`;
 
     if (this.currentRound == this.nbRounds) {
       this.endGame();
@@ -196,13 +196,10 @@ class FlagQuizGame {
   }
 
   endGame() {
-    document.querySelector(
-      ".game-end"
-    ).textContent = `Partie terminée ! Vous avez ${this.score} point${
+    gameEnd.textContent = `Partie terminée ! Vous avez ${this.score} point${
       this.score > 1 ? "s" : ""
     }`;
 
-    const replayButton = document.getElementById("replay-btn");
     replayButton.style.display = "initial";
   }
 
@@ -226,12 +223,10 @@ class FlagQuizGame {
   }
 
   getListItemOfCorrectAnswer() {
-    const listItems = document.querySelectorAll("ul > li");
-
     let li = null;
 
     listItems.forEach((listItem) => {
-      if (listItem.textContent == this.correctAnswer) {
+      if (listItem.textContent === this.correctAnswer) {
         li = listItem;
       }
     });
@@ -240,7 +235,7 @@ class FlagQuizGame {
 
   // Faire en sorte de ne pas pouvoir sélectionner une proposition après avoir répondu
   removeListItemsListeners() {
-    document.querySelectorAll("ul > li").forEach((li) => {
+    listItems.forEach((li) => {
       li.onclick = null;
     });
   }
