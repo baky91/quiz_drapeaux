@@ -68,26 +68,22 @@ const result = document.querySelector(".answer-check");
 const score = document.querySelector(".score");
 const gameEnd = document.querySelector(".game-end");
 const roundCounter = document.getElementById("round-counter");
-const popup = document.getElementById("popup");
+const popupEndGame = document.getElementById("popup-end-game");
 const popupText = document.getElementById("popup-text");
+const popupSettings = document.getElementById("popup-settings");
+const select = document.getElementById("round-select");
+const settingsButton = document.getElementById("settings-button");
 
 class FlagQuizGame {
   constructor(countriesList) {
     this.staticCountries = countriesList;
     this.countries = null;
+    // Choisir le nombre de manches manuellement
+    this.nbRounds = 10;
+    // Pour faire passer tous les pays
+    // this.nbRounds = countries.length;
 
-    // Bouton pour la manche suivante
-    continueButton.addEventListener("click", () => this.continue());
-    document.addEventListener("keypress", (e) => {
-      if (e.key === "Enter" && !continueButton.classList.contains("hidden"))
-        this.continue();
-    });
-
-    // Bouton pour rejouer
-
-    replayButton.addEventListener("click", () => {
-      this.initGame();
-    });
+    this.addListeners();
 
     this.initGame();
   }
@@ -95,10 +91,6 @@ class FlagQuizGame {
   initGame() {
     // Faire en sorte que countries prenne le contenu de staticCountries et non la référence vers le tableau
     this.countries = this.staticCountries.map((c) => ({ ...c }));
-    // Choisir le nombre de manches manuellement
-    this.nbRounds = 10;
-    // Pour faire passer tous les pays
-    // this.nbRounds = countries.length;
     this.currentRound = 0;
     this.correctAnswer = null;
     this.score = 0;
@@ -113,6 +105,11 @@ class FlagQuizGame {
     // Initialisation du compteur de manche et de points
     roundCounter.textContent = `Manche 1/${this.nbRounds}`;
     score.innerHTML = `Vous avez <strong>0</strong> point`;
+
+    // Définir l'option "Tous les pays" comme étant la taille de countries
+    document.querySelector(".last-option").value = `${this.countries.length}`;
+
+    select.value = this.nbRounds.toString();
 
     this.playRound();
   }
@@ -194,6 +191,42 @@ class FlagQuizGame {
     this.removeListItemsListeners();
   }
 
+  addListeners() {
+    // Bouton pour la manche suivante
+    continueButton.addEventListener("click", () => this.continue());
+    document.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && !continueButton.classList.contains("hidden"))
+        this.continue();
+    });
+
+    // Bouton pour rejouer
+
+    replayButton.addEventListener("click", () => {
+      this.initGame();
+    });
+
+    settingsButton.addEventListener("click", () => {
+      this.showPopup("settings");
+    });
+
+    // Fermer la popup
+    document
+      .getElementById("popup-close-end-game")
+      .addEventListener("click", () => {
+        document.getElementById("popup-end-game").classList.add("hidden");
+      });
+
+    document
+      .getElementById("popup-close-settings")
+      .addEventListener("click", () => {
+        const newRoundCounter = select.value;
+        this.nbRounds = parseInt(newRoundCounter);
+        this.initGame();
+
+        document.getElementById("popup-settings").classList.add("hidden");
+      });
+  }
+
   continue() {
     this.playRound();
     continueButton.classList.add("hidden");
@@ -209,15 +242,19 @@ class FlagQuizGame {
     }`;
 
     replayButton.style.display = "initial";
-    this.showPopup();
+    this.showPopup("game-end");
   }
 
-  showPopup() {
-    popup.classList.remove("hidden");
+  showPopup(type) {
+    if (type === "game-end") {
+      popupEndGame.classList.remove("hidden");
 
-    popupText.textContent = `Vous avez obtenu ${this.score} point${
-      this.score > 1 ? "s" : ""
-    } !`;
+      popupText.textContent = `Vous avez obtenu ${this.score} point${
+        this.score > 1 ? "s" : ""
+      } !`;
+    } else if (type === "settings") {
+      popupSettings.classList.remove("hidden");
+    }
   }
 
   getRandomCountry() {
@@ -257,8 +294,3 @@ class FlagQuizGame {
     });
   }
 }
-
-// Fermer la popup
-document.getElementById("popup-close").addEventListener("click", () => {
-  document.getElementById("popup").classList.add("hidden");
-});
