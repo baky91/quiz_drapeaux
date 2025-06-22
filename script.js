@@ -68,6 +68,8 @@ const result = document.querySelector(".answer-check");
 const score = document.querySelector(".score");
 const gameEnd = document.querySelector(".game-end");
 const roundCounter = document.getElementById("round-counter");
+const popup = document.getElementById("popup");
+const popupText = document.getElementById("popup-text");
 
 class FlagQuizGame {
   constructor(countriesList) {
@@ -75,13 +77,10 @@ class FlagQuizGame {
     this.countries = null;
 
     // Bouton pour la manche suivante
-    continueButton.addEventListener("click", () => {
-      this.playRound();
-      continueButton.classList.add("hidden");
-
-      listItems.forEach((li) => {
-        li.style.background = "#e0e7ff";
-      });
+    continueButton.addEventListener("click", () => this.continue());
+    document.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && !continueButton.classList.contains("hidden"))
+        this.continue();
     });
 
     // Bouton pour rejouer
@@ -195,12 +194,30 @@ class FlagQuizGame {
     this.removeListItemsListeners();
   }
 
+  continue() {
+    this.playRound();
+    continueButton.classList.add("hidden");
+
+    listItems.forEach((li) => {
+      li.style.background = "#e0e7ff";
+    });
+  }
+
   endGame() {
     gameEnd.textContent = `Partie terminée ! Vous avez ${this.score} point${
       this.score > 1 ? "s" : ""
     }`;
 
     replayButton.style.display = "initial";
+    this.showPopup();
+  }
+
+  showPopup() {
+    popup.classList.remove("hidden");
+
+    popupText.textContent = `Vous avez obtenu ${this.score} point${
+      this.score > 1 ? "s" : ""
+    } !`;
   }
 
   getRandomCountry() {
@@ -240,3 +257,8 @@ class FlagQuizGame {
     });
   }
 }
+
+// Fermer la popup
+document.getElementById("popup-close").addEventListener("click", () => {
+  document.getElementById("popup").classList.add("hidden");
+});
