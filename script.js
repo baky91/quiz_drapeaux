@@ -78,10 +78,18 @@ class FlagQuizGame {
   constructor(countriesList) {
     this.staticCountries = countriesList;
     this.countries = null;
-    // Choisir le nombre de manches manuellement
-    this.nbRounds = 10;
-    // Pour faire passer tous les pays
-    // this.nbRounds = countries.length;
+
+    // Charger les paramètre sur le nombre de manche
+    const savedRounds = localStorage.getItem("rounds");
+
+    if (savedRounds) {
+      this.nbRounds =
+        savedRounds === "all"
+          ? this.staticCountries.length
+          : parseInt(savedRounds);
+    } else {
+      this.nbRounds = 10; // Valeur par défaut
+    }
 
     this.addListeners();
 
@@ -107,7 +115,9 @@ class FlagQuizGame {
     score.innerHTML = `Vous avez <strong>0</strong> point`;
 
     // Définir l'option "Tous les pays" comme étant la taille de countries
-    document.querySelector(".last-option").value = `${this.countries.length}`;
+    document.querySelector(
+      ".last-option"
+    ).value = `${this.staticCountries.length}`;
 
     select.value = this.nbRounds.toString();
 
@@ -220,10 +230,19 @@ class FlagQuizGame {
       .getElementById("popup-close-settings")
       .addEventListener("click", () => {
         const newRoundCounter = select.value;
+
+        // Sauvegarder les paramètres sur le nombre de manches
+        if (newRoundCounter === `${this.staticCountries.length}`) {
+          localStorage.setItem("rounds", "all");
+        } else {
+          localStorage.setItem("rounds", newRoundCounter);
+        }
+
         this.nbRounds = parseInt(newRoundCounter);
-        this.initGame();
 
         document.getElementById("popup-settings").classList.add("hidden");
+
+        this.initGame();
       });
 
     document
