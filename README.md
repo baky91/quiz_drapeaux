@@ -13,7 +13,7 @@ Lien : https://baky91.github.io/quiz_drapeaux
 - Boutons permettant de continuer la partie et de rejouer
 - Aucune dépendance externe
 - Choix du nombre de manches
-- Sauvegarde du nombre de manches
+- Sauvegarde du choix nombre de manches
 
 ## Aperçu
 
