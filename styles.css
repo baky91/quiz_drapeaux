@@ -49,6 +49,9 @@ h1 {
     max-height: 180px;
     max-width: 100%;
     border-radius: 10px;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
 }
 
 
